@@ -34,8 +34,8 @@ spec:
           - queue_id: ${record['log'].match(/postfix\/qmgr\u005B[0-9]+\u005D\u003A ([0-9A-F]+)\u003A from=/).captures[0]}
           - from:  ${record['log'].match(/postfix\/qmgr\u005B[0-9]+\u005D\u003A [0-9A-F]+\u003A from=<([^<>]+)>,/).captures[0]}
           - domain: ${record['log'].match(/.+ from=<[^@<]+@([^@>]+)>,/).captures[0]}
-          - size: ${record['log'].match(/.+, size=([0-9]+), nrcpt=/).captures[0]}
-          - nrcpt: ${record['log'].match(/.+, nrcpt=([0-9]+) \(queue active\)/).captures[0]}
+          - size: ${record['log'].match(/.+, size=([0-9]+), nrcpt=/).captures[0].to_i}
+          - nrcpt: ${record['log'].match(/.+, nrcpt=([0-9]+) \(queue active\)/).captures[0].to_i}
 
     {{ if .Values.logging.debug -}}
     - stdout:
